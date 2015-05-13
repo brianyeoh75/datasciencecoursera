@@ -7,7 +7,7 @@ pollutantmean <- function(directory, pollutant, id=1:332)
   
   #prep file paths by appending .csv and prepending the directory
   #massages by adding the trailing zero
-  prepFileNames <- function(x)
+  prepFileNames<-function(x)
   {
     if (x<10){x<-paste(c(0,x),collapse='')}
     if (x<100){x<-paste(c(0,x),collapse='')}
@@ -16,10 +16,7 @@ pollutantmean <- function(directory, pollutant, id=1:332)
   filePaths <-lapply(id, prepFileNames)
   
   #Read files at one go
-  data<-lapply(filePaths,read.csv)
-  
-  #collapses the list of dataframes stored in data into one dataframe
-  data<-Reduce(function(...) merge(..., all=TRUE), data)
+  data<-do.call(rbind,lapply(filePaths,read.csv))
   
   #calculate mean
   mean(unlist(data[pollutant]),na.rm=TRUE)
