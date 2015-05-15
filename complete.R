@@ -13,10 +13,8 @@ complete <- function(directory, id=1:332)
     x<-paste(c(directory,"/",x,".csv"),collapse='')
   }
   
-  getNobs<-function(x)
-  {
-    x<-nrow(x[complete.cases(x),])
-  }
+  #collect total number of complete cases
+  getNobs<-function(x){x<-nrow(x[complete.cases(x),])}
   
   filePaths <-lapply(id, prepFileNames)
   
